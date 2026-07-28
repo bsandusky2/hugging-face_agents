@@ -1,0 +1,12 @@
+import duckdb
+
+con = duckdb.connect("data/baseball.duckdb")
+
+columns = con.execute("""
+    SELECT column_name
+    FROM information_schema.columns
+    WHERE table_name = 'raw_statcast'
+""").fetchall()
+
+for column in columns:
+    print(column[0])
